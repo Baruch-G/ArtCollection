@@ -1,0 +1,34 @@
+.card {
+    width: 1000px;
+    height: 220px;
+    background-color: #343A40;
+    border-radius: 0.5em;
+    align-self: center;
+    justify-self: center;
+}
+
+.card:hover {
+    background-color: #35393c;
+    transition: 0.2s;
+    /* background-color: rgb(29, 29, 29); */
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 12px; */
+}
+
+.img-area {
+    background-color: white;
+    height: 100%;
+    /* border-radius: 0.5em 0.5s 0s 0s; */
+
+    border-radius: 0.5em 0 0.5em 0 ;
+}
+
+.body-area {
+    color: rgb(162, 162, 162) !important;
+}
+
+.img-el {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden
+}
