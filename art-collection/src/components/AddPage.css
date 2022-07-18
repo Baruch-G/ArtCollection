@@ -1,0 +1,21 @@
+.card-container{
+    display: flex;
+    justify-content: center;
+}
+
+.add-card {
+    width: 330px;
+    height: 200px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 23px;
+    background-color: rgb(31, 31, 31);
+    display: grid;
+    justify-items: center;
+    margin : 50px
+    ; min-width: 200px
+}
+.add-card:hover {
+    transform: scale(1.05); 
+    transition: 100ms;
+    background-color: rgb(34, 34, 34);
+
+}

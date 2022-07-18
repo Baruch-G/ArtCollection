@@ -13,11 +13,17 @@ import InventoryIcon from '@mui/icons-material/Inventory'
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import AddCardIcon from '@mui/icons-material/AddCard'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import ListAltIcon from '@mui/icons-material/ListAlt'
 import './Navbar.css'
 
 export default function Navbar() {
   const tabItems = [
+    {
+      content: 'הוסף פריט',
+      link: '/add',
+      icon: <AddCardIcon />,
+      isVisible: true,
+    },
     {
       content: 'רשימת פריטים',
       link: '/collections-nav',

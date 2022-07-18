@@ -7,22 +7,39 @@ import { Radio } from 'rsuite'
 import TocIcon from '@mui/icons-material/Toc'
 import CreditCardIcon from '@mui/icons-material/CreditCard'
 import { FaCommentsDollar } from 'react-icons/fa'
+import PrintsTable from './PrintsTable'
+import ItemCard from './ItemCard'
+import CardsDisplay from './CardsDisplay'
+import { POST, GET } from '../fetch'
+
 const CollectionsNav = () => {
-  const [mode, setMode] = React.useState('List')
+  const [mode, setMode] = React.useState('table')
   const [prints, setPrints] = React.useState([])
+
+  const modes = [
+    {
+      mode: 'table',
+      icon: <TocIcon style={{ color: mode == 'table' ? 'black' : 'white' }} />,
+      component: <PrintsTable prints={prints} />,
+    },
+    {
+      mode: 'cards',
+      icon: (
+        <CreditCardIcon
+          style={{ color: mode == 'cards' ? 'black' : 'white' }}
+        />
+      ),
+      component: <CardsDisplay prints={prints} />,
+    },
+  ]
 
   React.useEffect(() => {
     fetchPrints()
   }, [mode])
 
-  const fetchPrints = () => {
-    fetch('https://localhost:7009/Prints')
-      .then((response) => response.json())
-      .then((data) => {
-        setPrints(data)
-        console.log(data)
-      })
-      .catch((e) => console.log(e))
+  const fetchPrints = async () => {
+    const {data: Items} = await GET('Prints')
+    setPrints(Items)
   }
 
   return (
@@ -30,7 +47,7 @@ const CollectionsNav = () => {
       <div
         style={{
           direction: 'rtl',
-          width: '70%',
+          width: '90%',
           justifySelf: 'center',
           marginTop: '30px',
         }}
@@ -51,24 +68,25 @@ const CollectionsNav = () => {
             name="radioList"
             inline
             appearance="picker"
-            defaultValue="List"
-            onChange={(e) => setMode(e)}
+            defaultValue="table"
+            onChange={(e) => {
+              setMode(e)
+            }}
           >
-            <Radio value="List" style={mode == 'List' ? selected : notSelected}>
-              <TocIcon style={{ color: mode == 'List' ? 'black' : 'white' }} />
-            </Radio>
-            <Radio
-              value="Cards"
-              style={mode == 'Cards' ? selected : notSelected}
-            >
-              <CreditCardIcon
-                style={{ color: mode == 'Cards' ? 'black' : 'white' }}
-              />
-            </Radio>
+            {modes.map((currMode) => (
+              <Radio
+                key={currMode.mode}
+                value={currMode.mode}
+                style={currMode.mode == mode ? selected : notSelected}
+              >
+                {currMode.icon}
+              </Radio>
+            ))}
           </RadioGroup>
         </Form.Group>
-
-        {/* <PrintsTable/> */}
+        {modes.map((i) => (
+          <div key={i.mode}>{i.mode == mode ? i.component : null}</div>
+        ))}
       </div>
     </div>
   )
@@ -76,11 +94,11 @@ const CollectionsNav = () => {
 
 const selected = {
   backgroundColor: 'white',
+  borderRadius: '3px',
 }
 
 const notSelected = {
   backgroundColor: 'transparent',
-  color: 'red',
 }
 
 export default CollectionsNav
