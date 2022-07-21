@@ -6,8 +6,14 @@ const GenericTable = (props) => {
   const [sortColumn, setSortColumn] = React.useState()
   const [sortType, setSortType] = React.useState()
   const [showAll, setShowAll] = React.useState(false)
+  const [minimumDisplayCol, setMinimumDisplayCol] = React.useState(6)
 
   const defaultColumns = props.defaultColumns
+
+  defaultColumns.forEach((element) => {
+    element.width = 1370 / defaultColumns.length
+  })
+
   const columns = defaultColumns.filter((column) =>
     defaultColumns
       .map((column) => column.key)
@@ -21,9 +27,18 @@ const GenericTable = (props) => {
   const getData = (range = props.rows.length) => {
     if (sortColumn && sortType) {
       return props.rows.slice(0, range).sort((a, b) => {
-
-        let x = sortColumn == "PrintKind.Name" ? (a.PrintKind ? a.PrintKind.Name : '') : a[sortColumn]
-        let y = sortColumn == "PrintKind.Name" ? (b.PrintKind ? b.PrintKind.Name : '') : b[sortColumn]
+        let x =
+          sortColumn == 'PrintKind.Name'
+            ? a.PrintKind
+              ? a.PrintKind.Name
+              : ''
+            : a[sortColumn]
+        let y =
+          sortColumn == 'PrintKind.Name'
+            ? b.PrintKind
+              ? b.PrintKind.Name
+              : ''
+            : b[sortColumn]
 
         if (typeof x === 'string') {
           x = x.charCodeAt()
@@ -54,7 +69,7 @@ const GenericTable = (props) => {
         }}
       >
         <Table
-          data={showAll ? getData() : getData(6)}
+          data={showAll ? getData() : getData(minimumDisplayCol)}
           sortColumn={sortColumn}
           sortType={sortType}
           autoHeight
@@ -78,12 +93,14 @@ const GenericTable = (props) => {
         </Table>
       </div>
 
-      <ButtonToolbar
-        onClick={() => setShowAll(!showAll)}
-        style={{ marginTop: 10 }}
-      >
-        <Button>{showAll ? 'הצג פחות' : 'הצג הכול'}</Button>
-      </ButtonToolbar>
+      {props.rows.length > minimumDisplayCol && (
+        <ButtonToolbar
+          onClick={() => setShowAll(!showAll)}
+          style={{ marginTop: 10 }}
+        >
+          <Button>{showAll ? 'הצג פחות' : 'הצג הכול'}</Button>
+        </ButtonToolbar>
+      )}
     </div>
   )
 }

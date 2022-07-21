@@ -1,7 +1,7 @@
 import React from 'react'
-import ItemCard from './ItemCard'
+import LargeArtCard from './LargeArtCard'
 
-const CardsDisplay = (props) => {
+const LPrintsCardsDisplay = (props) => {
   return (
     <div style={{ display: 'grid', justifyItems: 'center' }}>
       {props.prints.map((i) => {
@@ -9,15 +9,17 @@ const CardsDisplay = (props) => {
           {
             lbl: 'HPGP',
             txt: i.HPGP,
+            width: 30
           },
           {
             lbl: 'שם יוצר/אמן',
             txt: i.ArtistName,
-          },
+            width : 70
+          }
         ]
         return (
           <div style={{ marginTop: '40px' }} key={i.Id}>
-            <ItemCard t1={i.Title} t2={i.Notes} labels={labels}></ItemCard>
+            <LargeArtCard t1={i.Title} t2={i.Notes} t3={i.References} labels={labels}></LargeArtCard>
           </div>
         )
       })}
@@ -25,4 +27,4 @@ const CardsDisplay = (props) => {
   )
 }
 
-export default CardsDisplay
+export default LPrintsCardsDisplay

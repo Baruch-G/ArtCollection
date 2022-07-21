@@ -8,19 +8,39 @@ import TocIcon from '@mui/icons-material/Toc'
 import CreditCardIcon from '@mui/icons-material/CreditCard'
 import { FaCommentsDollar } from 'react-icons/fa'
 import PrintsTable from './PrintsTable'
-import ItemCard from './ItemCard'
-import CardsDisplay from './CardsDisplay'
+import LargeArtCard from './LargeArtCard'
+import LPrintsCardsDisplay from './LPrintsCardsDisplay'
 import { POST, GET } from '../fetch'
+import './CollectionsNav.css'
 
 const CollectionsNav = () => {
   const [mode, setMode] = React.useState('table')
   const [prints, setPrints] = React.useState([])
+  const [activeTab, setActiveTab] = React.useState('prints')
+
+  const components = [
+    {
+      tab: 'prints-table',
+      component: <PrintsTable prints={prints} />,
+    },
+    {
+      tab: 'prints-cards',
+      component: <LPrintsCardsDisplay prints={prints} />,
+    },
+    {
+      tab: 'paints-table',
+      component: <div>עדיין אין נתונים להציג בטאב ציורים</div>,
+    },
+    {
+      tab: 'paints-cards',
+      component: <div>עדיין אין נתונים להציג בטאב ציורים</div>,
+    },
+  ]
 
   const modes = [
     {
       mode: 'table',
       icon: <TocIcon style={{ color: mode == 'table' ? 'black' : 'white' }} />,
-      component: <PrintsTable prints={prints} />,
     },
     {
       mode: 'cards',
@@ -29,18 +49,42 @@ const CollectionsNav = () => {
           style={{ color: mode == 'cards' ? 'black' : 'white' }}
         />
       ),
-      component: <CardsDisplay prints={prints} />,
     },
   ]
+
+  const getCurrComponent = () => {
+  
+    var com = components.find((c) => c.tab == `${activeTab}-${mode}`)
+
+    return <div>{com != undefined ? com.component : <div>עדיין אין מידע לטאב זה </div>}</div>
+  }
 
   React.useEffect(() => {
     fetchPrints()
   }, [mode])
 
   const fetchPrints = async () => {
-    const {data: Items} = await GET('Prints')
+    const { data: Items } = await GET('Prints')
     setPrints(Items)
   }
+
+  const tabs = [
+    {
+      key: 'prints',
+      title: 'הדפסים'    },
+    {
+      key: 'paints',
+      title: 'ציורים'
+    },
+    {
+      key: 'objects',
+      title: 'Objets de vertu'
+    },
+    {
+      key: 'all',
+      title: 'הכול'
+    },
+  ]
 
   return (
     <div style={{ display: 'grid' }}>
@@ -52,11 +96,16 @@ const CollectionsNav = () => {
           marginTop: '30px',
         }}
       >
-        <Nav appearance="tabs" justified>
-          <Nav.Item>הדפסים</Nav.Item>
-          <Nav.Item>ציורים (fine)</Nav.Item>
-          <Nav.Item>Objets de vertu</Nav.Item>
-          <Nav.Item>הכול</Nav.Item>
+        <Nav appearance="tabs" justified onSelect={(e) => setActiveTab(e)}>
+          {tabs.map((tab) => (
+            <Nav.Item
+              key={tab.key}
+              eventKey={tab.key}
+              active={tab.key == activeTab}
+            >
+              {tab.title}
+            </Nav.Item>
+          ))}
         </Nav>
 
         <Form.Group
@@ -84,9 +133,7 @@ const CollectionsNav = () => {
             ))}
           </RadioGroup>
         </Form.Group>
-        {modes.map((i) => (
-          <div key={i.mode}>{i.mode == mode ? i.component : null}</div>
-        ))}
+        {getCurrComponent()}
       </div>
     </div>
   )

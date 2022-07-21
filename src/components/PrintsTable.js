@@ -33,7 +33,7 @@ const defaultColumns = [
   {
     key: 'Notes',
     label: 'הערות',
-    width: 460,
+    width: 315,
     resizable: true,
     sortable: true,
   },
