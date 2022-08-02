@@ -11,7 +11,7 @@ const GenericTable = (props) => {
   const defaultColumns = props.defaultColumns
 
   defaultColumns.forEach((element) => {
-    element.width = 1370 / defaultColumns.length
+    element.width = props.divWidth / defaultColumns.length
   })
 
   const columns = defaultColumns.filter((column) =>

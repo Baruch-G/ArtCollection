@@ -1,4 +1,5 @@
 import React from 'react'
+import {useRef} from 'react'
 import GenericTable from './GenericTable'
 
 const defaultColumns = [
@@ -41,24 +42,29 @@ const defaultColumns = [
     key: 'HPGP',
     label: 'HPGP',
     width: 70,
+    resizable: true,
   },
 ]
 
 const PrintsTable = (props) => {
   const [rows, setRows] = React.useState([])
+  const [tableConwidth, setTableConWidth] = React.useState(0)
+
+  const printTableContainer = useRef(null);
 
   React.useEffect(() => {
-    // console.log(props.prints)
     setRows(props.prints)
+    setTableConWidth(printTableContainer.current.offsetWidth)
   })
 
   return (
     <div
+    ref={printTableContainer}
       style={{
         marginTop: '50px',
       }}
     >
-      <GenericTable rows={rows} defaultColumns={defaultColumns} />
+      <GenericTable divWidth={tableConwidth} rows={rows} defaultColumns={defaultColumns} />
     </div>
   )
 }

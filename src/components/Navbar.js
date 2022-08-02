@@ -59,7 +59,16 @@ export default function Navbar() {
               <React.Fragment key={item.link}>
                 <Link to={item.link}>
                   <Button style={navBtnStyle} color="inherit">
-                    {item.content}
+                    <span
+                      style={{
+                        marginRight: '2px',
+
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      {item.content}
+                    </span>
                     {item.icon}
                   </Button>
                 </Link>

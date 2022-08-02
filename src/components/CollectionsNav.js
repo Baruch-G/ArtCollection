@@ -53,10 +53,13 @@ const CollectionsNav = () => {
   ]
 
   const getCurrComponent = () => {
-  
     var com = components.find((c) => c.tab == `${activeTab}-${mode}`)
 
-    return <div>{com != undefined ? com.component : <div>עדיין אין מידע לטאב זה </div>}</div>
+    return (
+      <div>
+        {com != undefined ? com.component : <div>עדיין אין מידע לטאב זה </div>}
+      </div>
+    )
   }
 
   React.useEffect(() => {
@@ -71,18 +74,19 @@ const CollectionsNav = () => {
   const tabs = [
     {
       key: 'prints',
-      title: 'הדפסים'    },
+      title: 'הדפסים',
+    },
     {
       key: 'paints',
-      title: 'ציורים'
+      title: 'ציורים',
     },
     {
       key: 'objects',
-      title: 'Objets de vertu'
+      title: 'Objets de vertu',
     },
     {
       key: 'all',
-      title: 'הכול'
+      title: 'הכול',
     },
   ]
 

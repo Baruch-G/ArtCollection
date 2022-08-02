@@ -34,6 +34,20 @@
     overflow: hidden
 }
 
-.seperator{
+.seperator {
     border-top: 2px solid rgb(106, 106, 106, 0.2);
+}
+
+.vertical-seperator {
+    border-left: 1px solid rgb(106, 106, 106, 0.2);
+}
+
+.info-grid {
+    width: 34%;
+    border: solid;
+    border-radius: 5px;
+    border-width: 0.5px;
+    font-weight: bold;
+    padding: 3px;
+    border-color: rgb(110, 107, 107);
 }
