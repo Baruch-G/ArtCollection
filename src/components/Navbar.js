@@ -14,14 +14,15 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import AddCardIcon from '@mui/icons-material/AddCard'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ListAltIcon from '@mui/icons-material/ListAlt'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import './Navbar.css'
 
 export default function Navbar() {
   const tabItems = [
     {
-      content: 'הוסף פריט',
-      link: '/add',
-      icon: <AddCardIcon />,
+      content: 'תפריט עריכה',
+      link: '/edit',
+      icon: <AppRegistrationIcon />,
       isVisible: true,
     },
     {
@@ -31,7 +32,7 @@ export default function Navbar() {
       isVisible: true,
     },
     {
-      content: 'ניהול משתמשים',
+      content: 'משתמשים',
       link: '/manage-users',
       icon: <PeopleAltIcon />,
       isVisible: true,
@@ -62,7 +63,6 @@ export default function Navbar() {
                     <span
                       style={{
                         marginRight: '2px',
-
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
                       }}

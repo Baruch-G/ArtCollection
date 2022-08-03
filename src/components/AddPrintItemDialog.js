@@ -21,19 +21,20 @@ import {
 import ImageUploader from './ImageUploader'
 
 const initFormValue = {
-  Title: '',
-  ArtistName: '',
-  Notes: '',
-  FrameSize: '',
-  ImageSize: '',
-  ArtistName: '',
-  Source: '',
-  References: '',
-  AdditionalNotes: '',
-  EstimatedDate: '',
-  HPGP: '',
-  ExhibitionArea: '',
-  PrintKind: '',
+  Title: undefined,
+  ArtistName: undefined,
+  Notes: undefined,
+  Size: undefined,
+  FrameSize: undefined,
+  ImageSize: undefined,
+  ArtistName: undefined,
+  Source: undefined,
+  References: undefined,
+  AdditionalNotes: undefined,
+  EstimatedDate: undefined,
+  HPGP: undefined,
+  ExhibitionArea: undefined,
+  PrintKind: undefined,
 }
 
 const Textarea = React.forwardRef((props, ref) => (
@@ -52,7 +53,7 @@ const AddPrintItemDialog = (props) => {
 
   const postPrint = async () => {
     const body = formValue
-    // body.PrintKind = printKinds.find((i) => i.Id == body.PrintKind)
+    body.PrintKind = printKinds.find((i) => i.Id == body.PrintKind)
     body.Labels = []
     body.LinkedFiles = []
     body.HPGP = Number(body.HPGP)
@@ -62,19 +63,24 @@ const AddPrintItemDialog = (props) => {
 
     POST('prints', body)
       .then(() => {
-        Swal.fire('Success')
+        Swal.fire({
+          icon: 'success',
+          title: 'הפריט התווסף בהצלחה',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        setFormValue(initFormValue)
       })
       .catch((e) => {
-        Swal.fire('Error')
+        Swal.fire({
+          icon: 'error',
+          title: 'אופס',
+          text: 'משהו השתבש'
+        })
       })
   }
 
-  const getPrintKinds = () => {
-    console.log(
-      printKinds.map((item) => ({ label: item.Name, value: item.Id })),
-    )
-    return printKinds.map((item) => ({ label: item.Name, value: item.Id }))
-  }
+  const getPrintKinds = () => printKinds.map((item) => ({ label: item.Name, value: item.Id }))
 
   useEffect(() => {
     fetchPrintKinds()
@@ -142,7 +148,7 @@ const AddPrintItemDialog = (props) => {
                   }}
                 >
                   <Form.Group controlId="Source" className="form-group">
-                    <Form.ControlLabel>מקור</Form.ControlLabel>
+                    <Form.ControlLabel>מקור *</Form.ControlLabel>
                     <Form.Control size="xs" name="Source" />
                   </Form.Group>
                   <Form.Group controlId="Notes" className="form-group">
@@ -169,11 +175,11 @@ const AddPrintItemDialog = (props) => {
                   }}
                 >
                   <Form.Group controlId="Title" className="form-group">
-                    <Form.ControlLabel>כותרת</Form.ControlLabel>
+                    <Form.ControlLabel>כותרת *</Form.ControlLabel>
                     <Form.Control size="xs" name="Title" />
                   </Form.Group>
                   <Form.Group controlId="PrintKind" className="form-group">
-                    <Form.ControlLabel>סוג הדפס</Form.ControlLabel>
+                    <Form.ControlLabel>סוג הדפס *</Form.ControlLabel>
                     <Form.Control
                       size="xs"
                       name="PrintKind"
@@ -189,7 +195,7 @@ const AddPrintItemDialog = (props) => {
                   </Form.Group>
 
                   <Form.Group controlId="EstimatedDate" className="form-group">
-                    <Form.ControlLabel>תיארוך</Form.ControlLabel>
+                    <Form.ControlLabel>תיארוך *</Form.ControlLabel>
                     <Form.Control size="xs" name="EstimatedDate" />
                   </Form.Group>
 
@@ -232,8 +238,12 @@ const AddPrintItemDialog = (props) => {
                     </Form.Group>
                   </div>
                   <div style={{ display: 'flex' }}>
-                    <Form.Group controlId="HPGP" className="form-group">
-                      <Form.ControlLabel>HPGP</Form.ControlLabel>
+                    <Form.Group
+                      style={{ marginLeft: '7px' }}
+                      controlId="HPGP"
+                      className="form-group"
+                    >
+                      <Form.ControlLabel>HPGP *</Form.ControlLabel>
                       <Form.Control size="xs" name="HPGP" />
                     </Form.Group>
                     <Form.Group

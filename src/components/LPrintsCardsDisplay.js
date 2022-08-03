@@ -30,7 +30,7 @@ const LPrintsCardsDisplay = (props) => {
               t1={`סוג הדפס: ${i.PrintKind ? i.PrintKind.Name : "לא ידוע"}`}
               t2={`הערות: ${i.Notes ? i.Notes : ""}`}
               t3={`מ"מ והערות: ${i.References ? i.References : ""}`}
-              t4={`מקור ${i.Source ? i.Source : ""}`}
+              t4={`מקור: ${i.Source ? i.Source : ""}`}
               labels={labels}
             ></LargeArtCard>
           </div>
