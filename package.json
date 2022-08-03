@@ -21,6 +21,7 @@
     "rsuite": "^5.16.0",
     "rsuite-table": "^5.6.0",
     "styled-components": "^5.3.5",
+    "sweetalert2": "^11.4.24",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

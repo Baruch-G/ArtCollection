@@ -1,12 +1,12 @@
 import React from 'react'
 import AddItemDialog from './AddPrintItemDialog'
-import './AddPage.css'
+import './EditPage.css'
 import PostAddIcon from '@mui/icons-material/PostAdd'
 import { ButtonToolbar, Button, Modal } from 'rsuite'
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import AddUserDialog from './AddUserDialog'
-const AddPage = () => {
+const EditPage = () => {
   const [open, setOpen] = React.useState(false)
   const [openUserDialog, setOpenUserDialog] = React.useState(false)
   const handleOpen = () => setOpen(true)
@@ -44,4 +44,4 @@ const AddPage = () => {
   )
 }
 
-export default AddPage
+export default EditPage

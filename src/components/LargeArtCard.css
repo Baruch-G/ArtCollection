@@ -9,7 +9,8 @@
 
 .card:hover {
     background-color: #35393c;
-    transition: 0.2s;
+    transition: 100ms;
+    /* transform: scale(1.009); */
     /* background-color: rgb(29, 29, 29); */
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 12px; */
 }
@@ -19,7 +20,7 @@
     height: 100%;
     /* border-radius: 0.5em 0.5s 0s 0s; */
 
-    border-radius: 0.5em 0 0.5em 0 ;
+    border-radius: 0.5em 0 0 0.5em;
 }
 
 .body-area {
@@ -31,4 +32,22 @@
     height: 100%;
     object-fit: contain;
     overflow: hidden
+}
+
+.seperator {
+    border-top: 2px solid rgb(106, 106, 106, 0.2);
+}
+
+.vertical-seperator {
+    border-left: 1px solid rgb(106, 106, 106, 0.2);
+}
+
+.info-grid {
+    width: 34%;
+    border: solid;
+    border-radius: 5px;
+    border-width: 0.5px;
+    font-weight: bold;
+    padding: 3px;
+    border-color: rgb(110, 107, 107);
 }

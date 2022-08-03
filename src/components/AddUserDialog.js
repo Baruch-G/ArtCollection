@@ -38,7 +38,7 @@ const AddUserDialog = (props) => {
             </Form.Group>
             <Form.Group controlId="email">
               <Form.ControlLabel>דוא"ל</Form.ControlLabel>
-              <Form.Control name="email" placeholder="הכנס דוא''ל" type="email" errorMessage={emailErrorVisible ? "ddff" : null}/>
+              <Form.Control name="email" placeholder="ערך זה ישמש כשם המשתמש בעת הכניסה למערכת" type="email" errorMessage={emailErrorVisible ? "תבנית אימייל לא חוקית" : null}/>
               <Form.HelpText tooltip>Email is required</Form.HelpText>
             </Form.Group>
             <Form.Group controlId="password">

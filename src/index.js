@@ -4,6 +4,10 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import 'rsuite/dist/rsuite.min.css' // or
+// ES6 Modules or TypeScript
+
+// CommonJS
+const Swal = require('sweetalert2')
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

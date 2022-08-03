@@ -10,12 +10,12 @@
     background-color: rgb(31, 31, 31);
     display: grid;
     justify-items: center;
-    margin : 50px
-    ; min-width: 200px
+    margin : 50px;
+    min-width: 200px;
 }
 .add-card:hover {
-    transform: scale(1.05); 
-    transition: 100ms;
+    transform: scale(1.09); 
+    transition: 200ms;
     background-color: rgb(34, 34, 34);
-
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 0px;
 }

@@ -6,7 +6,7 @@ import Login from './components/Login'
 import CollectionsNav from './components/CollectionsNav'
 import UsersManagement from './components/UsersManagement'
 
-import AddPage from './components/AddPage'
+import EditPage from './components/EditPage'
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
           <Route path="/login" element={<Login onLogin={setUserState} />} />
           <Route path="/manage-users" element={<UsersManagement />} />
           <Route path="/collections-nav" element={<CollectionsNav />} />
-          <Route path="/add" element={<AddPage />} />
+          <Route path="/edit" element={<EditPage />} />
         </Routes>
       </div>
     </Router>
