@@ -75,12 +75,13 @@ const AddPrintItemDialog = (props) => {
         Swal.fire({
           icon: 'error',
           title: 'אופס',
-          text: 'משהו השתבש'
+          text: 'משהו השתבש',
         })
       })
   }
 
-  const getPrintKinds = () => printKinds.map((item) => ({ label: item.Name, value: item.Id }))
+  const getPrintKinds = () =>
+    printKinds.map((item) => ({ label: item.Name, value: item.Id }))
 
   useEffect(() => {
     fetchPrintKinds()
