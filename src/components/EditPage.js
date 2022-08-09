@@ -7,32 +7,64 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import AddUserDialog from './AddUserDialog'
 const EditPage = () => {
-  const [open, setOpen] = React.useState(false)
+  const [openAddPrintDialog, setOpenAddPrintDialog] = React.useState(false)
   const [openUserDialog, setOpenUserDialog] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+
+  var containers = [
+    {
+      key: 'users',
+      title: 'משתמשים',
+      features: [
+        {
+          header: 'הוסף משתמש',
+          icon: <PersonAddAlt1Icon style={{ fontSize: 60 }} />,
+          onClick: () => setOpenUserDialog(true),
+        },
+        {
+          header: 'ערוך משתמש',
+          icon: <PersonAddAlt1Icon style={{ fontSize: 60 }} />,
+          onClick: () => console.log('edit user'),
+        },
+      ],
+    },
+    {
+      key: 'prints',
+      title: 'הדפסים',
+      features: [
+        {
+          header: 'הוסף הדפס',
+          icon: <PostAddIcon style={{ fontSize: 60 }} />,
+          onClick: () => setOpenAddPrintDialog(true),
+        },
+        {
+          header: 'ערוך הדפס',
+          icon: <LibraryAddCheckIcon style={{ fontSize: 60 }} />,
+          onClick: () => console.log('edit print'),
+        },
+      ],
+    },
+  ]
 
   return (
     <div>
-      <div className="card-container" style={{ marginTop: 20 }}>
-        <div className="add-card">
-          <LibraryAddCheckIcon style={{ fontSize: 90 }} />
-          <h3>הוסף סוג הדפס</h3>
-        </div>
-        <div className="add-card" onClick={handleOpen}>
-          <PostAddIcon style={{ fontSize: 90 }} />
-          <h3>הוסף הדפס</h3>
-        </div>
-        <div className="add-card" onClick={() => setOpenUserDialog(true)}>
-          <PersonAddAlt1Icon style={{ fontSize: 90 }} />
-          <h3>הוסף משתמש</h3>
-        </div>
+      <div className="main-container" style={{ marginTop: 20 }}>
+        {containers.map((container) => (
+          <div key={container.key} className="cards-container">
+            <h4>{container.title}</h4>
+            {container.features.map((btn) => (
+              <div key={btn.header} onClick={btn.onClick} className="add-card">
+                <h3>{btn.header}</h3>
+                {btn.icon}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
 
       <AddItemDialog
-        open={open}
-        handleClose={handleClose}
-        handleOpen={handleOpen}
+        open={openAddPrintDialog}
+        handleClose={() => setOpenAddPrintDialog(false)}
+        handleOpen={() => setOpenAddPrintDialog(true)}
       />
 
       <AddUserDialog

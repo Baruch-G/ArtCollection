@@ -22,6 +22,13 @@ const defaultColumns = [
     resizable: true,
     sortable: true,
   },
+
+  {
+    key: 'Email',
+    label: 'Email',
+    resizable: true,
+    sortable: true,
+  }
 ]
 
 export default function UsersManagement() {
