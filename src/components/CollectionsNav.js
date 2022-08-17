@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react'  
 import { Nav } from 'rsuite'
 import { Form } from 'rsuite'
 import { RadioGroup } from 'rsuite'
@@ -67,7 +67,7 @@ const CollectionsNav = () => {
   }, [mode])
 
   const fetchPrints = async () => {
-    const { data: Items } = await GET('Prints')
+    const { data: Items } = await GET('prints')
     setPrints(Items)
   }
 
