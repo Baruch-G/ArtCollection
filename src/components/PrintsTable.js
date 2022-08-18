@@ -1,6 +1,8 @@
 import React from 'react'
 import {useRef} from 'react'
+import { defaultClassPrefix } from 'rsuite/esm/utils'
 import GenericTable from './GenericTable'
+import GenericTable2 from './GenericTable2'
 
 const defaultColumns = [
   {
@@ -64,7 +66,8 @@ const PrintsTable = (props) => {
         marginTop: '50px',
       }}
     >
-      <GenericTable divWidth={tableConwidth} rows={rows} defaultColumns={defaultColumns} />
+      {/* <GenericTable divWidth={tableConwidth} rows={rows} defaultColumns={defaultColumns} /> */}
+      <GenericTable2 items={rows} columns={defaultColumns}/>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import * as React from 'react'  
+import * as React from 'react'
 import { Nav } from 'rsuite'
 import { Form } from 'rsuite'
 import { RadioGroup } from 'rsuite'
@@ -97,7 +97,7 @@ const CollectionsNav = () => {
           direction: 'rtl',
           width: '90%',
           justifySelf: 'center',
-          marginTop: '30px',
+          marginTop: '30px',  
         }}
       >
         <Nav appearance="tabs" justified onSelect={(e) => setActiveTab(e)}>
