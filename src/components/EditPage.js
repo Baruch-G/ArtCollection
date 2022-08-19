@@ -6,9 +6,12 @@ import { ButtonToolbar, Button, Modal } from 'rsuite'
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import AddUserDialog from './AddUserDialog'
+import ExportPrints from './ExportPrints'
+
 const EditPage = () => {
   const [openAddPrintDialog, setOpenAddPrintDialog] = React.useState(false)
   const [openUserDialog, setOpenUserDialog] = React.useState(false)
+  const [openExportDialog, setOpenExportDialog] = React.useState(false)
 
   var containers = [
     {
@@ -41,13 +44,18 @@ const EditPage = () => {
           icon: <LibraryAddCheckIcon style={{ fontSize: 60 }} />,
           onClick: () => console.log('edit print'),
         },
+        {
+          header: 'ייצא לקובץ אקסל',
+          icon: <LibraryAddCheckIcon style={{ fontSize: 60 }} />,
+          onClick: () => setOpenExportDialog(true),
+        },
       ],
     },
   ]
 
   return (
     <div>
-      <div className="main-container" style={{ marginTop: 20 }}>
+      <div className="main-container">
         {containers.map((container) => (
           <div key={container.key} className="cards-container">
             <h4>{container.title}</h4>
@@ -71,6 +79,12 @@ const EditPage = () => {
         open={openUserDialog}
         handleClose={() => setOpenUserDialog(false)}
         handleOpen={() => setOpenUserDialog(true)}
+      />
+
+      <ExportPrints
+        open={openExportDialog}
+        handleClose={() => setOpenExportDialog(false)}
+        handleOpen={() => setOpenExportDialog(true)}
       />
     </div>
   )

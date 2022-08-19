@@ -3,10 +3,6 @@ import LargeArtCard from './LargeArtCard'
 import { GET } from '../fetch'
 
 const LPrintsCardsDisplay = (props) => {
-  const [r, setR] = useState([])
-  useEffect(() => {
-    // setR(props.prints)
-  })
   return (
     <div style={{ display: 'grid', justifyItems: 'center' }}>
       {props.prints.map((i) => {

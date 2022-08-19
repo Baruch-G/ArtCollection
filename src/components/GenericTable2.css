@@ -1,0 +1,7 @@
+.k-grid th,
+.k-grid td {
+    text-align: right !important;
+    height: 5px !important;
+    white-space: nowrap;
+
+}

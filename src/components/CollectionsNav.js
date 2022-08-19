@@ -67,7 +67,7 @@ const CollectionsNav = () => {
   }, [mode])
 
   const fetchPrints = async () => {
-    const { data: Items } = await GET('Prints')
+    const { data: Items } = await GET('prints')
     setPrints(Items)
   }
 
@@ -97,7 +97,7 @@ const CollectionsNav = () => {
           direction: 'rtl',
           width: '90%',
           justifySelf: 'center',
-          marginTop: '30px',
+          marginTop: '30px',  
         }}
       >
         <Nav appearance="tabs" justified onSelect={(e) => setActiveTab(e)}>
