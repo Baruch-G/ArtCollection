@@ -47,15 +47,12 @@ const AddPrintItemDialog = (props) => {
   const [readOnly, setReadOnly] = React.useState(false)
 
   const fetchPrintKinds = async () => {
-    const { data: Items } = await GET('print-kinds')
+    const { data: Items } = await GET('prints/print-kinds')
     setPrintKinds(Items)
   }
 
   const postPrint = async () => {
     const body = formValue
-    body.PrintKind = printKinds.find((i) => i.Id == body.PrintKind)
-    body.Labels = []
-    body.LinkedFiles = []
     body.HPGP = Number(body.HPGP)
     body.ImgUrl = 'https://thumbs.dreamstime.com/b/funny-face-baby-27701492.jpg'
 
@@ -81,7 +78,7 @@ const AddPrintItemDialog = (props) => {
   }
 
   const getPrintKinds = () =>
-    printKinds.map((item) => ({ label: item.Name, value: item.Id }))
+    printKinds.map((item) => ({ label: item, value: item }))
 
   useEffect(() => {
     fetchPrintKinds()

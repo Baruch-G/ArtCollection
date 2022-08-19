@@ -1,5 +1,5 @@
 import React from 'react'
-import {useRef} from 'react'
+import { useRef } from 'react'
 import { defaultClassPrefix } from 'rsuite/esm/utils'
 import GenericTable from './GenericTable'
 import GenericTable2 from './GenericTable2'
@@ -13,7 +13,7 @@ const defaultColumns = [
     sortable: true,
   },
   {
-    key: 'PrintKind.Name',
+    key: 'PrintKind',
     label: 'סוג הדפס',
     width: 250,
     resizable: true,
@@ -52,7 +52,7 @@ const PrintsTable = (props) => {
   const [rows, setRows] = React.useState([])
   const [tableConwidth, setTableConWidth] = React.useState(0)
 
-  const printTableContainer = useRef(null);
+  const printTableContainer = useRef(null)
 
   React.useEffect(() => {
     setRows(props.prints)
@@ -61,13 +61,13 @@ const PrintsTable = (props) => {
 
   return (
     <div
-    ref={printTableContainer}
+      ref={printTableContainer}
       style={{
         marginTop: '50px',
       }}
     >
       {/* <GenericTable divWidth={tableConwidth} rows={rows} defaultColumns={defaultColumns} /> */}
-      <GenericTable2 items={rows} columns={defaultColumns}/>
+      <GenericTable2 items={rows} columns={defaultColumns} />
     </div>
   )
 }
