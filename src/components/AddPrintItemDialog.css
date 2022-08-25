@@ -3,9 +3,21 @@
     font-size: 8px;
 }
 
-.rs-uploader-trigger{
+.rs-uploader-trigger {
     width: 100%;
 }
-.x-x{
+
+.x-x {
     font-size: 15px;
+}
+
+.formm {
+    display: flex !important;
+    justify-content: space-between;
+    width : 100%;
+}
+
+.fsize {
+    width: 30%;
+    width : 100%;
 }

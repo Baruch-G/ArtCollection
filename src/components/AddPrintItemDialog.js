@@ -44,11 +44,23 @@ const Textarea = React.forwardRef((props, ref) => (
 const AddPrintItemDialog = (props) => {
   const [formValue, setFormValue] = React.useState(initFormValue)
   const [printKinds, setPrintKinds] = React.useState([])
+  const [artists, setArtists] = React.useState([])
+  const [sources, setSources] = React.useState([])
   const [readOnly, setReadOnly] = React.useState(false)
 
   const fetchPrintKinds = async () => {
     const { data: Items } = await GET('prints/print-kinds')
     setPrintKinds(Items)
+  }
+
+  const fetchArtists = async () => {
+    const { data: Items } = await GET('prints/artists')
+    setArtists(Items)
+  }
+
+  const fetchSources = async () => {
+    const { data: Items } = await GET('prints/sources')
+    setSources(Items)
   }
 
   const postPrint = async () => {
@@ -80,8 +92,14 @@ const AddPrintItemDialog = (props) => {
   const getPrintKinds = () =>
     printKinds.map((item) => ({ label: item, value: item }))
 
+  const getArtists = () => artists.map((item) => ({ label: item, value: item }))
+  const getSources = () => sources.map((item) => ({ label: item, value: item }))
+
   useEffect(() => {
     fetchPrintKinds()
+    fetchArtists()
+    fetchSources()
+
     if (props.printObject) {
       setFormValue(props.printObject)
       setReadOnly(true)
@@ -100,7 +118,7 @@ const AddPrintItemDialog = (props) => {
         <Modal.Header>
           <Modal.Title style={{ display: 'grid', justifyContent: 'center' }}>
             <div>
-              <h3>הוסף הדפס</h3>
+              <div>הוסף הדפס</div>
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -110,151 +128,155 @@ const AddPrintItemDialog = (props) => {
             readOnly={readOnly}
             formValue={formValue}
             onChange={(formValue) => setFormValue(formValue)}
+            autocomplete="off"
           >
-            <Grid style={{ width: '100%' }}>
-              <Row style={{ fontSize: '12px' }}>
-                <Col style={{ width: '33%' }}>
-                  <Form.Group className="form-group">
-                    <Form.ControlLabel>תמונה</Form.ControlLabel>
-                    <ImageUploader style={{ width: '100%' }} />
-                  </Form.Group>
-                  <Form.Group className="form-group">
-                    <Form.ControlLabel>קבצים נוספים</Form.ControlLabel>
-                    <Uploader
-                      action="//jsonplaceholder.typicode.com/posts/"
-                      draggable
-                    >
-                      <div
-                        style={{
-                          height: 70,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <span style={{ fontSize: '11px' }}>
-                          גרור קובץ לכאן אן לחץ לעיון במחשב
-                        </span>
-                      </div>
-                    </Uploader>
-                  </Form.Group>
-                </Col>
+            <div className="formm">
+              <div style={{ width: '30%' }}>
+                <Form.Group controlId="Title" className="form-group fsize">
+                  <Form.ControlLabel>כותרת *</Form.ControlLabel>
+                  <Form.Control size="xs" name="Title" />
+                </Form.Group>
+                <Form.Group controlId="PrintKind" className="form-group fsize">
+                  <Form.ControlLabel>סוג הדפס *</Form.ControlLabel>
+                  <Form.Control
+                    size="xs"
+                    name="PrintKind"
+                    style={{ width: '100%' }}
+                    placeholder="בחר סוג הדפס"
+                    data={getPrintKinds()}
+                    accepter={AutoComplete}
+                  />
+                </Form.Group>
+                <Form.Group controlId="ArtistName" className="form-group fsize">
+                  <Form.ControlLabel>שם אמן/יוצר</Form.ControlLabel>
+                  <Form.Control
+                    size="xs"
+                    name="ArtistName"
+                    accepter={AutoComplete}
+                    data={getArtists()}
+                  />
+                </Form.Group>
 
-                <Col
-                  style={{
-                    width: '33%',
-                  }}
+                <Form.Group
+                  controlId="EstimatedDate"
+                  className="form-group fsize"
                 >
-                  <Form.Group controlId="Source" className="form-group">
-                    <Form.ControlLabel>מקור *</Form.ControlLabel>
-                    <Form.Control size="xs" name="Source" />
-                  </Form.Group>
-                  <Form.Group controlId="Notes" className="form-group">
-                    <Form.ControlLabel>הערות</Form.ControlLabel>
-                    <Form.Control rows={5} name="Notes" accepter={Textarea} />
-                  </Form.Group>
+                  <Form.ControlLabel>תיארוך *</Form.ControlLabel>
+                  <Form.Control size="xs" name="EstimatedDate" />
+                </Form.Group>
 
-                  <Form.Group controlId="References" className="form-group">
-                    <Form.ControlLabel>מ"מ והערות</Form.ControlLabel>
-                    <Form.Control size="xs" name="References" />
-                  </Form.Group>
+                <div className="fsize" style={{ display: 'flex' }}>
                   <Form.Group
-                    controlId="AdditionalNotes"
+                    style={{ marginLeft: '7px' }}
+                    controlId="Size"
                     className="form-group"
                   >
-                    <Form.ControlLabel>הערות נוספות</Form.ControlLabel>
-                    <Form.Control size="xs" name="AdditionalNotes" />
-                  </Form.Group>
-                </Col>
+                    <Form.ControlLabel>גיליון</Form.ControlLabel>
 
-                <Col
-                  style={{
-                    width: '33%',
-                  }}
-                >
-                  <Form.Group controlId="Title" className="form-group">
-                    <Form.ControlLabel>כותרת *</Form.ControlLabel>
-                    <Form.Control size="xs" name="Title" />
-                  </Form.Group>
-                  <Form.Group controlId="PrintKind" className="form-group">
-                    <Form.ControlLabel>סוג הדפס *</Form.ControlLabel>
                     <Form.Control
+                      accepter={MaskedInput}
+                      mask={[/\d/, /\d/, 'X', /\d/, /\d/]}
                       size="xs"
-                      name="PrintKind"
-                      style={{ width: '100%' }}
-                      placeholder="בחר סוג הדפס"
-                      data={getPrintKinds()}
-                      accepter={SelectPicker}
+                      name="Size"
                     />
                   </Form.Group>
-                  <Form.Group controlId="ArtistName" className="form-group">
-                    <Form.ControlLabel>שם אמן/יוצר</Form.ControlLabel>
-                    <Form.Control size="xs" name="ArtistName" />
+                  <Form.Group controlId="ImageSize" className="form-group">
+                    <Form.ControlLabel>אימג'</Form.ControlLabel>
+                    <Form.Control
+                      accepter={MaskedInput}
+                      mask={[/\d/, /\d/, 'X', /\d/, /\d/]}
+                      size="xs"
+                      name="ImageSize"
+                    />
                   </Form.Group>
-
-                  <Form.Group controlId="EstimatedDate" className="form-group">
-                    <Form.ControlLabel>תיארוך *</Form.ControlLabel>
-                    <Form.Control size="xs" name="EstimatedDate" />
+                  <Form.Group
+                    style={{ marginRight: '7px' }}
+                    controlId="FrameSize"
+                    className="form-group"
+                  >
+                    <Form.ControlLabel>ממוסגר</Form.ControlLabel>
+                    <Form.Control
+                      accepter={MaskedInput}
+                      mask={[/\d/, /\d/, 'X', /\d/, /\d/]}
+                      size="xs"
+                      name="FrameSize"
+                    />
                   </Form.Group>
+                </div>
 
-                  <div style={{ display: 'flex' }}>
-                    <Form.Group
-                      style={{ marginLeft: '7px' }}
-                      controlId="Size"
-                      className="form-group"
-                    >
-                      <Form.ControlLabel>גיליון</Form.ControlLabel>
+                <div className="fsize" style={{ display: 'flex' }}>
+                  <Form.Group
+                    style={{ marginLeft: '7px' }}
+                    controlId="HPGP"
+                    className="form-group"
+                  >
+                    <Form.ControlLabel>HPGP *</Form.ControlLabel>
+                    <Form.Control size="xs" name="HPGP" />
+                  </Form.Group>
+                  <Form.Group controlId="ExhibitionArea" className="form-group">
+                    <Form.ControlLabel>א תצוגה</Form.ControlLabel>
+                    <Form.Control size="xs" name="ExhibitionArea" />
+                  </Form.Group>
+                </div>
+              </div>
+              <div style={{ width: '30%' }}>
+                <Form.Group controlId="Source" className="form-group fsize">
+                  <Form.ControlLabel>מקור *</Form.ControlLabel>
+                  <Form.Control
+                    size="xs"
+                    name="Source"
+                    style={{ width: '100%' }}
+                    placeholder=""
+                    data={getSources()}
+                    accepter={AutoComplete}
+                  />
+                </Form.Group>
+                <Form.Group controlId="Notes" className="form-group fsize">
+                  <Form.ControlLabel>הערות</Form.ControlLabel>
+                  <Form.Control rows={5} name="Notes" accepter={Textarea} />
+                </Form.Group>
 
-                      <Form.Control
-                        accepter={MaskedInput}
-                        mask={[/\d/, /\d/, 'X', /\d/, /\d/]}
-                        size="xs"
-                        name="Size"
-                      />
-                    </Form.Group>
-                    <Form.Group controlId="ImageSize" className="form-group">
-                      <Form.ControlLabel>אימג'</Form.ControlLabel>
-                      <Form.Control
-                        accepter={MaskedInput}
-                        mask={[/\d/, /\d/, 'X', /\d/, /\d/]}
-                        size="xs"
-                        name="ImageSize"
-                      />
-                    </Form.Group>
-                    <Form.Group
-                      style={{ marginRight: '7px' }}
-                      controlId="FrameSize"
-                      className="form-group"
+                <Form.Group controlId="References" className="form-group fsize">
+                  <Form.ControlLabel>מ"מ והערות</Form.ControlLabel>
+                  <Form.Control size="xs" name="References" />
+                </Form.Group>
+                <Form.Group
+                  controlId="AdditionalNotes"
+                  className="form-group fsize"
+                >
+                  <Form.ControlLabel>הערות נוספות</Form.ControlLabel>
+                  <Form.Control size="xs" name="AdditionalNotes" />
+                </Form.Group>
+              </div>
+
+              <div style={{ width: '30%' }}>
+                <Form.Group className="form-group fsize">
+                  <Form.ControlLabel>תמונה</Form.ControlLabel>
+                  <ImageUploader style={{ width: '100%' }} />
+                </Form.Group>
+                <Form.Group className="form-group fsize">
+                  <Form.ControlLabel>קבצים נוספים</Form.ControlLabel>
+                  <Uploader
+                    action="//jsonplaceholder.typicode.com/posts/"
+                    draggable
+                  >
+                    <div
+                      style={{
+                        height: 70,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
                     >
-                      <Form.ControlLabel>ממוסגר</Form.ControlLabel>
-                      <Form.Control
-                        accepter={MaskedInput}
-                        mask={[/\d/, /\d/, 'X', /\d/, /\d/]}
-                        size="xs"
-                        name="FrameSize"
-                      />
-                    </Form.Group>
-                  </div>
-                  <div style={{ display: 'flex' }}>
-                    <Form.Group
-                      style={{ marginLeft: '7px' }}
-                      controlId="HPGP"
-                      className="form-group"
-                    >
-                      <Form.ControlLabel>HPGP *</Form.ControlLabel>
-                      <Form.Control size="xs" name="HPGP" />
-                    </Form.Group>
-                    <Form.Group
-                      controlId="ExhibitionArea"
-                      className="form-group"
-                    >
-                      <Form.ControlLabel>א תצוגה</Form.ControlLabel>
-                      <Form.Control size="xs" name="ExhibitionArea" />
-                    </Form.Group>
-                  </div>
-                </Col>
-              </Row>
-            </Grid>
+                      <span style={{ fontSize: '11px' }}>
+                        גרור קובץ לכאן אן לחץ לעיון במחשב
+                      </span>
+                    </div>
+                  </Uploader>
+                </Form.Group>
+                {/* </Col> */}
+              </div>
+            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>

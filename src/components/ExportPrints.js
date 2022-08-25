@@ -8,7 +8,7 @@ const columns = [
     label: 'כותרת',
   },
   {
-    key: 'PrintKind.Name',
+    key: 'PrintKind',
     label: 'סוג הדפס',
   },
   {
@@ -75,7 +75,14 @@ const ExportPrints = (props) => {
     const { data: Items } = await GET('prints')
     setPrints(Items)
   }
-  return <ExportDialog items={prints} columns={columns} open={props.open} onClose={props.handleClose} />
+  return (
+    <ExportDialog
+      items={prints}
+      columns={columns}
+      open={props.open}
+      onClose={props.handleClose}
+    />
+  )
 }
 
 export default ExportPrints
